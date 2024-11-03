@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人首頁</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- 引入 jQuery -->
     <style>
         /* 背景漸層樣式 */
         body {
@@ -53,6 +54,12 @@
             font-size: 36px;
             color: #333; /* 標題顏色 */
         }
+
+        .time {
+            font-size: 18px;
+            color: #666; /* 時間顏色 */
+            margin-top: 10px; /* 與標題之間的間距 */
+        }
     </style>
 </head>
 <body>
@@ -68,9 +75,27 @@
     <div class="container">
         <div class="box">
             <h1>歡迎</h1>
-            <p>請使用上方的導航連結來瀏覽更多資訊！</p>
+            <button id="welcomeButton">點擊我！</button> <!-- 新增按鈕 -->
+            <div class="time" id="currentTime"></div> <!-- 用來顯示當前時間 -->
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $("#welcomeButton").click(function() { // 當按鈕被點擊
+                alert("請使用上方的導航連結來瀏覽更多資訊！"); // 顯示警告消息
+            });
+
+            function updateTime() {
+                const now = new Date(); // 獲取當前時間
+                const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                const timeString = now.toLocaleString('zh-Hant-TW', options); // 格式化時間
+                $("#currentTime").text("當前時間: " + timeString); // 更新時間顯示
+            }
+
+            updateTime(); // 首次顯示時間
+            setInterval(updateTime, 1000); // 每秒更新一次時間
+        });
+    </script>
 </body>
 </html>
